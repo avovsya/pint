@@ -1,6 +1,11 @@
- - grunt test - run client-side and server-side tests
-	mocha, chai, phantomjs
  - translate to coffescript(???)
  - support for less
- - change supervisor to node-dev(???)
+ - change supervisor to node-dev or nodev(???)
+ - migrate to grunt 0.4.x (https://github.com/gruntjs/grunt/wiki/Upgrading-from-0.3-to-0.4)
+ - implement tasks
+   test(grunt-mocha and grunt-simple-mocha plugins)
+   test-watch
+   debug(nodev, node-inspector)
 
+ Feauters to implement:
+ - building and deploy app locally(cluster, nginx)

@@ -1,0 +1,6 @@
+ - grunt test - run client-side and server-side tests
+	mocha, chai, phantomjs
+ - translate to coffescript(???)
+ - support for less
+ - change supervisor to node-dev(???)
+

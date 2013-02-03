@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     },
 	bgShell: {
 	  supervisor: {
-        cmd: 'supervisor app.js',
+        cmd: 'node-dev app.js',
 		stdout: true,
 		stderr: true,
 		bg: true

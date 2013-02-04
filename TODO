@@ -1,11 +1,9 @@
- + translate to coffescript(???)
- + change supervisor to node-dev or nodev(???)
- - migrate to grunt 0.4.x (https://github.com/gruntjs/grunt/wiki/Upgrading-from-0.3-to-0.4)
+ - client-side test on coffee-script
+ - client-side scripts on coffee
  - implement tasks
-   test(grunt-mocha and grunt-simple-mocha plugins)
    test-watch
    + debug(nodev, node-inspector)
-	node-inspector should run exactly after node server started
+	  - node-inspector should run exactly after node server started
 
  Feautures to implement:
  - building and deploy app locally(cluster, nginx)

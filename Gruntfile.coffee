@@ -29,6 +29,14 @@ module.exports = (grunt) ->
                 'public/app/**/*.html'
             ]
             tasks: 'reload'
+        #browser testing through PhantomJS
+        mocha:
+            all: ['public/test/**/*.html']
+            options:
+                mocha:
+                    ignoreLeaks: false
+                    reporter: 'spec'
+                run: true
         simplemocha:
             options:
                 timeout: 3000
@@ -64,4 +72,5 @@ module.exports = (grunt) ->
     grunt.registerTask 'default', ['test', 'server']
     grunt.registerTask 'server', ['supervisor', 'reload', 'watch']
     grunt.registerTask 'debug', ['debug', 'reload', 'watch']
+    grunt.registerTask 'test', ['simplemocha', 'mocha']
 

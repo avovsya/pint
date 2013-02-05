@@ -22,9 +22,9 @@ module.exports = (grunt) ->
                 port: 3000
         watch:
             coffee:
-                files: []
-                tasks: ''
-            app:
+                files: 'public/app/scripts/coffee/**/*.coffee'
+                tasks: 'coffee reload'
+            reload:
                 files: [
                     'public/app/*.html',
                     'public/app/styles/**/*.css',
@@ -56,7 +56,6 @@ module.exports = (grunt) ->
             '--watch',
             'lib',
             '--watch',
-            'app.coffee',
             'app.coffee'
         ]
 
@@ -71,8 +70,16 @@ module.exports = (grunt) ->
             'app.coffee'
         ]
 
-    grunt.registerTask 'default', ['test', 'server']
-    grunt.registerTask 'server', ['supervisor', 'reload', 'watch:app']
-    grunt.registerTask 'debug', ['debug', 'reload', 'watch:app']
-    grunt.registerTask 'test', ['simplemocha', 'mocha']
+    grunt.registerTask 'coffee', ->
+        # put your client-side coffee scripts from 
+        # public/app/scripts/coffee to
+        # public/app/scripts
+        output spawn 'coffee', ['--compile', '--output', 'public/app/scripts', 'public/app/scripts/coffee']
+        # compile test written in coffee-script
+        output spawn 'coffee', ['--compile', '--output', 'public/test/spec', 'public/test/spec/coffee']
+
+    grunt.registerTask 'default', ['server']
+    grunt.registerTask 'test', ['coffee', 'simplemocha', 'mocha']
+    grunt.registerTask 'server', ['test', 'supervisor', 'reload', 'watch']
+    grunt.registerTask 'debug', ['debug', 'reload', 'watch']
 

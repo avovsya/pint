@@ -21,14 +21,18 @@ module.exports = (grunt) ->
                 host: 'localhost'
                 port: 3000
         watch:
-            files: [
-                'public/app/*.html',
-                'public/app/styles/**/*.css',
-                'public/app/scripts/**/*.js',
-                'public/app/images/**/*',
-                'public/app/**/*.html'
-            ]
-            tasks: 'reload'
+            coffee:
+                files: 'public/app/scripts/coffee/**/*.coffee'
+                tasks: 'coffee reload'
+            reload:
+                files: [
+                    'public/app/*.html',
+                    'public/app/styles/**/*.css',
+                    'public/app/scripts/**/*.js',
+                    'public/app/images/**/*',
+                    'public/app/**/*.html'
+                ]
+                tasks: 'reload'
         #browser testing through PhantomJS
         mocha:
             all: ['public/test/**/*.html']
@@ -69,8 +73,16 @@ module.exports = (grunt) ->
             'app.coffee'
         ]
 
-    grunt.registerTask 'default', ['test', 'server']
-    grunt.registerTask 'server', ['supervisor', 'reload', 'watch']
+    grunt.registerTask 'coffee', ->
+        # put your client-side coffee scripts from 
+        # public/app/scripts/coffee to
+        # public/app/scripts
+        output spawn 'coffee', ['--compile', '--output', 'public/app/scripts', 'public/app/scripts/coffee']
+        # compile test written in coffee-script
+        output spawn 'coffee', ['--compile', '--output', 'public/test/spec', 'public/test/spec/coffee']
+
+    grunt.registerTask 'default', ['server']
+    grunt.registerTask 'test', ['coffee', 'simplemocha', 'mocha']
+    grunt.registerTask 'server', ['test', 'supervisor', 'reload', 'watch']
     grunt.registerTask 'debug', ['debug', 'reload', 'watch']
-    grunt.registerTask 'test', ['simplemocha', 'mocha']
 

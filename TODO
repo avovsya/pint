@@ -1,10 +1,8 @@
  - client-side test on coffee-script
- - client-side scripts on coffee
- - implement tasks
-   test-watch
-   + debug(nodev, node-inspector)
-	  - node-inspector should run exactly after node server started
+ - grunt task to build coffee-script
+ - test-watch
+ - linting coffee scripts - https://github.com/vojtajina/grunt-coffeelint
 
  Feautures to implement:
  - building and deploy app locally(cluster, nginx)
- - support for less
+ - support for less(???)

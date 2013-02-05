@@ -21,14 +21,18 @@ module.exports = (grunt) ->
                 host: 'localhost'
                 port: 3000
         watch:
-            files: [
-                'public/app/*.html',
-                'public/app/styles/**/*.css',
-                'public/app/scripts/**/*.js',
-                'public/app/images/**/*',
-                'public/app/**/*.html'
-            ]
-            tasks: 'reload'
+            coffee:
+                files: []
+                tasks: ''
+            app:
+                files: [
+                    'public/app/*.html',
+                    'public/app/styles/**/*.css',
+                    'public/app/scripts/**/*.js',
+                    'public/app/images/**/*',
+                    'public/app/**/*.html'
+                ]
+                tasks: 'reload'
         #browser testing through PhantomJS
         mocha:
             all: ['public/test/**/*.html']
@@ -48,10 +52,9 @@ module.exports = (grunt) ->
                 src: 'test/**/*.coffee'
 
     grunt.registerTask 'supervisor', ->
-        output spawn  'nodemon', ['--watch',
-            'lib',
+        output spawn  'nodemon', [
             '--watch',
-            'routes',
+            'lib',
             '--watch',
             'app.coffee',
             'app.coffee'
@@ -60,17 +63,16 @@ module.exports = (grunt) ->
     grunt.registerTask 'debug', ->
         ## go to http://localhost:5801/debug?port=5858 to debug with
         ## node-inspector (you need nodev and node-inspector packages)
-        output spawn  'nodev', ['--watch',
-            'lib',
+        output spawn  'nodev', [
             '--watch',
-            'routes',
+            'lib',
             '--watch',
             'app.coffee',
             'app.coffee'
         ]
 
     grunt.registerTask 'default', ['test', 'server']
-    grunt.registerTask 'server', ['supervisor', 'reload', 'watch']
-    grunt.registerTask 'debug', ['debug', 'reload', 'watch']
+    grunt.registerTask 'server', ['supervisor', 'reload', 'watch:app']
+    grunt.registerTask 'debug', ['debug', 'reload', 'watch:app']
     grunt.registerTask 'test', ['simplemocha', 'mocha']
 

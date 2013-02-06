@@ -1,5 +1,6 @@
  + client-side test on coffee-script
  + grunt task to build coffee-script
+ - use execSync(https://github.com/mgutz/execSync) to run coffee compiler(coffee and coffee-tests commands)
  - test-watch
  - linting coffee scripts - https://github.com/vojtajina/grunt-coffeelint
  - create Demo application

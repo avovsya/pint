@@ -3,7 +3,7 @@ module.exports = (grunt) ->
     {spawn} = require 'child_process'
 
     grunt.loadNpmTasks 'grunt-reload'
-    grunt.loadNpmTasks 'grunt-mocha'
+    grunt.loadNpmTasks 'grunt-regarde'
     grunt.loadNpmTasks 'grunt-simple-mocha'
     grunt.loadNpmTasks 'grunt-contrib-watch'
 
@@ -21,26 +21,23 @@ module.exports = (grunt) ->
                 host: 'localhost'
                 port: 3000
         watch:
-            coffee:
-                files: 'public/app/scripts/coffee/**/*.coffee'
-                tasks: ['coffee', 'reload']
-            reload:
+            tests:
+                files: ['test/**/*.coffee', 'lib/**/*.coffee', 'app.coffee']
+                tasks: ['simplemocha']
+        regarde:
+            app:
                 files: [
                     'public/app/*.html',
                     'public/app/styles/**/*.css',
                     'public/app/scripts/**/*.js',
                     'public/app/images/**/*',
-                    'public/app/**/*.html'
+                    'public/app/**/*.html',
+
+                    'public/app/coffee/**/*.coffee',
+                    'public/test/spec/coffee/**/*.coffee'
                 ]
-                tasks: 'reload'
-        #browser testing through PhantomJS
-        mocha:
-            all: ['public/test/**/*.html']
-            options:
-                mocha:
-                    ignoreLeaks: false
-                    reporter: 'spec'
-                run: true
+                #tasks: ['coffee:compile', 'reload']
+                tasks: 'regarde:trigger'
         simplemocha:
             options:
                 timeout: 3000
@@ -71,18 +68,28 @@ module.exports = (grunt) ->
             'app.coffee'
         ]
 
-    grunt.registerTask 'coffee', ->
-        # compile your client-side coffee scripts from 
-        # public/app/scripts/coffee to
-        # public/app/scripts
-        output spawn 'coffee', ['--compile', '--output', 'public/app/scripts', 'public/app/scripts/coffee']
+    grunt.registerTask 'regarde:trigger', () ->
+        grunt.regarde.changed.forEach (file) ->
+            console.log file
+            if file.indexOf('.coffee') isnt -1
+                grunt.task.run 'coffee:compile'
+            else
+                grunt.task.run 'reload'
 
-    grunt.registerTask 'coffee-tests', ->
-        # compile test written in coffee-script
-        output spawn 'coffee', ['--compile', '--output', 'public/test/spec', 'public/test/spec/coffee']
 
+    # compile clien-side coffee scripts(application and tests)
+    grunt.registerTask 'coffee:compile', ->
+        output spawn 'coffee', ['--compile', '--output', 'public/app/scripts/', 'public/app/coffee/']
+        output spawn 'coffee', ['--compile', '--output', 'public/test/spec/', 'public/test/spec/coffee/']
+
+    grunt.registerTask 'env:test', ->
+        process.env.NODE_ENV = 'test'
+    grunt.registerTask 'env:dev', ->
+        process.env.NODE_ENV = 'development'
+
+    grunt.registerTask 'test', ['env:test', 'simplemocha']
+    grunt.registerTask 'test:watch', ['env:test', 'simplemocha', 'watch:tests']
+    grunt.registerTask 'debug', ['env:dev','nodev']
     grunt.registerTask 'default', ['server']
-    grunt.registerTask 'test', ['coffee', 'coffee-tests', 'simplemocha', 'mocha']
-    grunt.registerTask 'server', ['test', 'supervisor', 'reload', 'watch']
-    grunt.registerTask 'debug', ['nodev', 'reload', 'watch']
+    grunt.registerTask 'server', ['env:dev', 'test', 'coffee:compile', 'supervisor', 'reload', 'regarde:app']
 

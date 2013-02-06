@@ -1,16 +1,9 @@
- + client-side test on coffee-script
- + grunt task to build coffee-script
- - use execSync(https://github.com/mgutz/execSync) to run coffee compiler(coffee and coffee-tests commands)
- - make client side coffe-script path like in Yeoman
  - move express config to separate file
- - test-watch
  - create Demo application
+ - test functionality once again
+ - refactor code
 
  Future features:
  - building and deploy app locally(cluster, nginx)
  - support for less(???)
  - linting coffee scripts - https://github.com/vojtajina/grunt-coffeelint
- 
- Bugs:
- - grunt-mocha - unpredictable behavior. Wrong assertions can pass
- - grunt-reload - Version for grunt 0.4 sometimes turns off

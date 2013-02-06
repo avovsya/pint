@@ -1,8 +1,14 @@
- - client-side test on coffee-script
- - grunt task to build coffee-script
+ + client-side test on coffee-script
+ + grunt task to build coffee-script
  - test-watch
  - linting coffee scripts - https://github.com/vojtajina/grunt-coffeelint
+ - create Demo application
+ - move express config to separate file
 
  Feautures to implement:
  - building and deploy app locally(cluster, nginx)
  - support for less(???)
+ 
+ Bugs:
+ - grunt-mocha - unpredictable behavior. Wrong assertions can pass
+ - grunt-reload - Version for grunt 0.4 sometimes turns off

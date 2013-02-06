@@ -23,7 +23,7 @@ module.exports = (grunt) ->
         watch:
             coffee:
                 files: 'public/app/scripts/coffee/**/*.coffee'
-                tasks: 'coffee reload'
+                tasks: ['coffee', 'reload']
             reload:
                 files: [
                     'public/app/*.html',
@@ -56,10 +56,11 @@ module.exports = (grunt) ->
             '--watch',
             'lib',
             '--watch',
+            'app.coffee',
             'app.coffee'
         ]
 
-    grunt.registerTask 'debug', ->
+    grunt.registerTask 'nodev', ->
         ## go to http://localhost:5801/debug?port=5858 to debug with
         ## node-inspector (you need nodev and node-inspector packages)
         output spawn  'nodev', [
@@ -71,15 +72,17 @@ module.exports = (grunt) ->
         ]
 
     grunt.registerTask 'coffee', ->
-        # put your client-side coffee scripts from 
+        # compile your client-side coffee scripts from 
         # public/app/scripts/coffee to
         # public/app/scripts
         output spawn 'coffee', ['--compile', '--output', 'public/app/scripts', 'public/app/scripts/coffee']
+
+    grunt.registerTask 'coffee-tests', ->
         # compile test written in coffee-script
         output spawn 'coffee', ['--compile', '--output', 'public/test/spec', 'public/test/spec/coffee']
 
     grunt.registerTask 'default', ['server']
-    grunt.registerTask 'test', ['coffee', 'simplemocha', 'mocha']
+    grunt.registerTask 'test', ['coffee', 'coffee-tests', 'simplemocha', 'mocha']
     grunt.registerTask 'server', ['test', 'supervisor', 'reload', 'watch']
-    grunt.registerTask 'debug', ['debug', 'reload', 'watch']
+    grunt.registerTask 'debug', ['nodev', 'reload', 'watch']
 

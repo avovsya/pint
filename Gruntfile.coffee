@@ -22,21 +22,22 @@ module.exports = (grunt) ->
                 port: 3000
         watch:
             tests:
-                files: ['test/**/*.coffee', 'lib/**/*.coffee', 'app.coffee']
+                files: ['test/**/*.coffee', 'lib/**/*.coffee', 'app.coffee', 'test/**/*.js', 'lib/**/*.js']
                 tasks: ['simplemocha']
         regarde:
             app:
                 files: [
                     'public/app/*.html',
                     'public/app/styles/**/*.css',
-                    'public/app/scripts/**/*.js',
                     'public/app/images/**/*',
                     'public/app/**/*.html',
-
+                    # scripts
                     'public/app/coffee/**/*.coffee',
+                    'public/app/scripts/**/*.js',
+                    # tests
                     'public/test/spec/coffee/**/*.coffee'
+                    'public/test/spec/**/*.js',
                 ]
-                #tasks: ['coffee:compile', 'reload']
                 tasks: 'regarde:trigger'
         simplemocha:
             options:
@@ -69,10 +70,17 @@ module.exports = (grunt) ->
         ]
 
     grunt.registerTask 'regarde:trigger', () ->
-        grunt.regarde.changed.forEach (file) ->
-            console.log file
-            if file.indexOf('.coffee') isnt -1
+        grunt.regarde.changed.forEach (file) ->        
+            # hook for compilation client-side coffee scripts
+            if /\.coffee$/.test file
                 grunt.task.run 'coffee:compile'
+            # you can add your own compilers for anything else
+            # just following this pattern. 
+            # For example you could easily compile less to css:
+            #
+            # if /\.less$/.test file
+            #     spawn 'lessc', [ file, 'path/to/target.css' ]
+            
             else
                 grunt.task.run 'reload'
 

@@ -1,9 +1,4 @@
- - move express config to separate file
  - create Demo application
- - test functionality once again
- - refactor code
 
  Future features:
- - building and deploy app locally(cluster, nginx)
- - support for less(???)
  - linting coffee scripts - https://github.com/vojtajina/grunt-coffeelint

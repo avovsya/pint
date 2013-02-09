@@ -13,7 +13,8 @@ module.exports = (grunt) ->
         proc.stdout.on 'data', (data) -> outputStdout data
         proc.stderr.on 'data', (data) -> outputStdout data
 
-    grunt.initConfig
+    grunt.config.init
+
         reload:
             port: 6001
             proxy:
@@ -77,11 +78,9 @@ module.exports = (grunt) ->
             # just following this pattern. 
             # For example you could easily compile less to css:
             #
-            # if /\.less$/.test file
+            # else if /\.less$/.test file
             #     spawn 'lessc', [ file, 'path/to/target.css' ]
-            
-            else
-                grunt.task.run 'reload'
+            else grunt.task.run 'reload'
 
 
     # compile clien-side coffee scripts(application and tests)
@@ -89,14 +88,9 @@ module.exports = (grunt) ->
         output spawn 'coffee', ['--compile', '--output', 'public/app/scripts/', 'public/app/coffee/']
         output spawn 'coffee', ['--compile', '--output', 'public/test/spec/', 'public/test/spec/coffee/']
 
-    grunt.registerTask 'env:test', ->
-        process.env.NODE_ENV = 'test'
-    grunt.registerTask 'env:dev', ->
-        process.env.NODE_ENV = 'development'
-
-    grunt.registerTask 'test', ['env:test', 'simplemocha']
-    grunt.registerTask 'test:watch', ['env:test', 'simplemocha', 'regarde:tests']
-    grunt.registerTask 'debug', ['env:dev','nodev']
+    grunt.registerTask 'test', ['simplemocha']
+    grunt.registerTask 'test:watch', ['simplemocha', 'regarde:tests']
+    grunt.registerTask 'debug', ['nodev']
+    grunt.registerTask 'server', ['test', 'coffee:compile', 'supervisor', 'reload', 'regarde:app']
     grunt.registerTask 'default', ['server']
-    grunt.registerTask 'server', ['env:dev', 'test', 'coffee:compile', 'supervisor', 'reload', 'regarde:app']
 

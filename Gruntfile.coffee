@@ -5,7 +5,6 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-reload'
     grunt.loadNpmTasks 'grunt-regarde'
     grunt.loadNpmTasks 'grunt-simple-mocha'
-    grunt.loadNpmTasks 'grunt-contrib-watch'
 
     outputStdout = (data) ->
         console.log data.toString('utf8').trim()
@@ -20,11 +19,11 @@ module.exports = (grunt) ->
             proxy:
                 host: 'localhost'
                 port: 3000
-        watch:
+        regarde:
             tests:
                 files: ['test/**/*.coffee', 'lib/**/*.coffee', 'app.coffee', 'test/**/*.js', 'lib/**/*.js']
                 tasks: ['simplemocha']
-        regarde:
+                spawn: true
             app:
                 files: [
                     'public/app/*.html',
@@ -70,7 +69,7 @@ module.exports = (grunt) ->
         ]
 
     grunt.registerTask 'regarde:trigger', () ->
-        grunt.regarde.changed.forEach (file) ->        
+        grunt.regarde.changed.forEach (file) ->
             # hook for compilation client-side coffee scripts
             if /\.coffee$/.test file
                 grunt.task.run 'coffee:compile'
@@ -96,7 +95,7 @@ module.exports = (grunt) ->
         process.env.NODE_ENV = 'development'
 
     grunt.registerTask 'test', ['env:test', 'simplemocha']
-    grunt.registerTask 'test:watch', ['env:test', 'simplemocha', 'watch:tests']
+    grunt.registerTask 'test:watch', ['env:test', 'simplemocha', 'regarde:tests']
     grunt.registerTask 'debug', ['env:dev','nodev']
     grunt.registerTask 'default', ['server']
     grunt.registerTask 'server', ['env:dev', 'test', 'coffee:compile', 'supervisor', 'reload', 'regarde:app']

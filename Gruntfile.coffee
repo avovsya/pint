@@ -91,6 +91,6 @@ module.exports = (grunt) ->
     grunt.registerTask 'test', ['simplemocha']
     grunt.registerTask 'test:watch', ['simplemocha', 'regarde:tests']
     grunt.registerTask 'debug', ['nodev']
-    grunt.registerTask 'server', ['test', 'coffee:compile', 'supervisor', 'reload', 'regarde:app']
+    grunt.registerTask 'server', ['coffee:compile', 'supervisor', 'reload', 'regarde:app']
     grunt.registerTask 'default', ['server']
 

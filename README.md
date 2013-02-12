@@ -1,6 +1,6 @@
 # PINT
 
-Template for Node.js SPAs using Express and Yeoman(or something else with folder structure like in Yeoman)
+Template for single page applications using Express and Yeoman(or something else with folder structure like in Yeoman)
 
 ## Getting Started
 

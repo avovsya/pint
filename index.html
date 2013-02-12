@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Pint by avovsya</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Pint</h1>
+        <p>Template for Yeoman with Express.js backend.</p>
+
+        <p class="view"><a href="https://github.com/avovsya/pint">View the Project on GitHub <small>avovsya/pint</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/avovsya/pint/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/avovsya/pint/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/avovsya/pint">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>PINT</h1>
+
+<p>Template for single page applications using Express and Yeoman(or something else with folder structure like in Yeoman)</p>
+
+<h2>Getting Started</h2>
+
+<ol>
+<li>Download <a href="https://github.com/avovsya/pint/archive/master.zip">archive</a> and unzip</li>
+<li>Run <code>npm install</code> command</li>
+<li>Initialize Yeoman in public/ directory</li>
+<li>Put you routes in app.coffee(or anywhere else, but don't forget to require in app.coffee)</li>
+<li>Put you server-side tests written using Mocha in test/ directory</li>
+<li>Put you client-side tests(also Mocha) in public/test/spec/coffee</li>
+<li>Run <code>grunt</code> command and voilà - you've got server with autoreload server-side and client-side(livereload) scripts </li>
+</ol><h2>Prerequisites</h2>
+
+<h3>Global packages, that should be installed:</h3>
+
+<ul>
+<li>grunt-cli</li>
+<li>nodemon</li>
+<li>coffee-script</li>
+<li>node-inspector</li>
+<li>nodev (for easily debugging with node-inspector)</li>
+</ul><h2>What's include</h2>
+
+<h3>Grunt tasks</h3>
+
+<ul>
+<li>server - will watch your server-side code and restart server on changes. Also watches you client side html,css,js(coffee) and LiveReloads it. Go to localhost:6001 and check it out.</li>
+<li>debug - run node server in debug mode and also run node-inspector</li>
+<li>test - run your server-side tests</li>
+</ul><h2>Notes</h2>
+
+<h3>Coffee-script</h3>
+
+<p>You can write your client-side code(and tests) in coffee-script.
+Put scripts in public/app/coffee and public/test/spec/coffee and they will
+be automatically compiled to public/app/scripts and public/test/spec
+respectively. Folder structure will be saved. </p>
+
+<h3>Testing</h3>
+
+<p>To execute your server-side tests run <code>grunt test</code> command. 
+Unfortunately <strong>grunt-mocha</strong> plugin which is used to run client-side test without
+browser(using PhantomJS) have unpredictable behavior(wrong test can pass, and this depends
+in order in which tests been executed). You can open localhost:6001/test(only in development
+and test environments) to run Mocha tests in browser. Tests is also support livereloading.</p>
+
+<h2>License</h2>
+
+<p>Copyright (c) 2013 Artem Vovsya<br>
+Licensed under the MIT license.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/avovsya">avovsya</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
